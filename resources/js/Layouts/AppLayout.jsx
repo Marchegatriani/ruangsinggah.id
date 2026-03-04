@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
-export default function AppLayout({ auth, canLogin, canRegister, children }) {
+export default function AppLayout({ canLogin, canRegister, children }) {
+    const { auth } = usePage().props;
+
     return (
         <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
             {/* Navigation */}
@@ -15,10 +17,9 @@ export default function AppLayout({ auth, canLogin, canRegister, children }) {
                         </div>
                         <div className="hidden md:flex items-center space-x-8 font-medium text-sm">
                             <Link href="/" className="text-gray-600 hover:text-orange-500 transition">Beranda</Link>
-                            <a href="#tentang" className="text-gray-600 hover:text-orange-500 transition">Cari Kost</a>
-                            <a href="#verifikasi" className="text-gray-600 hover:text-orange-500 transition">Database Kost</a>
-                            <a href="#verifikasi" className="text-gray-600 hover:text-orange-500 transition">Jasa Survey</a>
-                            <a href="#verifikasi" className="text-gray-600 hover:text-orange-500 transition">Bermitra</a>
+                            <Link href={route('kost.index')} className="text-gray-600 hover:text-orange-500 transition">Cari Kost</Link>
+                            <Link href={route('database.index')} className="text-gray-600 hover:text-orange-500 transition">Database Kost</Link>
+                            <Link href={route('mitra.index')} className="text-gray-600 hover:text-orange-500 transition">Bermitra</Link>
                         </div>
                         <div className="flex items-center space-x-4">
                             {canLogin && (

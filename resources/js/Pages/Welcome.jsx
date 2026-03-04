@@ -19,9 +19,9 @@ const Welcome = ({ listKost = [], ...props }) => {
               Platform pertama yang memverifikasi setiap sudut hunian secara langsung untuk memastikan apa yang Anda lihat adalah apa yang Anda dapatkan.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="bg-orange-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-orange-600 transition shadow-xl shadow-orange-200">
+              <Link href={route('kost.index')} className="bg-orange-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-orange-600 transition shadow-xl shadow-orange-200 inline-block">
                 Mulai Cari Kost
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@ const Welcome = ({ listKost = [], ...props }) => {
               <span className="text-orange-600 font-bold uppercase tracking-widest text-sm mb-2 block">Pilihan Terbaik</span>
               <h2 className="text-3xl md:text-4xl font-black text-gray-900">Hunian Terverifikasi</h2>
             </div>
-            <Link href="/kost" className="text-orange-500 font-bold hover:underline">Lihat Semua →</Link>
+            <Link href={route('kost.index')} className="text-orange-500 font-bold hover:underline">Lihat Semua →</Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

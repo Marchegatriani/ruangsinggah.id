@@ -17,6 +17,7 @@ export default function GuestLayout({ children }) {
                         </div>
                         <div className="hidden md:flex items-center space-x-8 font-medium text-sm">
                             <Link href="/" className="text-gray-600 hover:text-orange-500 transition">Beranda</Link>
+                            <Link href={route('kost.index')} className="text-gray-600 hover:text-orange-500 transition">Cari Kost</Link>
                         </div>
                         <div className="flex items-center space-x-4">
                             <Link href={route('login')} className="text-gray-700 font-semibold hover:text-orange-500 transition">Masuk</Link>

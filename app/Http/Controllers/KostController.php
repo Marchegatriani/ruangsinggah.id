@@ -11,11 +11,11 @@ class KostController extends Controller
 {
     public function index()
     {
-        // Ambil data kost lengkap dengan gambar dan kampus terdekatnya
-        $listKost = Kost::with(['images', 'campuses'])->get();
+        // Ambil data kost lengkap dengan gambar dan kampus untuk ditampilkan di halaman pencarian
+        $listings = Kost::with(['images', 'campuses'])->latest()->get();
 
-        return Inertia::render('Welcome', [
-            'listKost' => $listKost,
+        return Inertia::render('User/Index', [
+            'listings' => $listings,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
