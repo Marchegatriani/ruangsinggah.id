@@ -11,12 +11,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Mendaftarkan Middleware Global untuk Web
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        //
+        // Mendaftarkan Alias Middleware agar bisa dipanggil di web.php
+        $middleware->alias([
+            'role' => \App\Http\Middleware\RoleControl::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

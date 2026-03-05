@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 
-export default function AppLayout({ canLogin, canRegister, children }) {
+export default function AppLayout({ children }) {
     const { auth } = usePage().props;
 
     return (
@@ -11,9 +11,9 @@ export default function AppLayout({ canLogin, canRegister, children }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-20 items-center">
                         <div className="flex items-center">
-                            <span className="text-2xl font-black text-orange-600 tracking-tighter">
+                            <Link href="/" className="text-2xl font-black text-orange-600 tracking-tighter">
                                 RuangSinggah<span className="text-gray-900">.id</span>
-                            </span>
+                            </Link>
                         </div>
                         <div className="hidden md:flex items-center space-x-8 font-medium text-sm">
                             <Link href="/" className="text-gray-600 hover:text-orange-500 transition">Beranda</Link>
@@ -27,16 +27,16 @@ export default function AppLayout({ canLogin, canRegister, children }) {
                                 <div className="flex items-center gap-6">
                                     <div className="text-right hidden sm:block">
                                         <p className="text-xs font-black text-gray-900 uppercase tracking-tight">{auth.user.name}</p>
-                                        <p className="text-[9px] text-orange-500 font-bold uppercase tracking-widest">User</p>
+                                        <p className="text-[9px] text-orange-500 font-bold uppercase tracking-widest">
+                                            {auth.user.role === 'admin' ? 'Administrator' : 'Penyewa'}
+                                        </p>
                                     </div>
+
                                     <Link 
                                         href={route('logout')} 
                                         method="post" 
                                         as="button" 
-                                        onClick={(e) => {
-                                            if (!confirm('Apakah anda yakin untuk keluar?')) e.preventDefault();
-                                        }}
-                                        className="bg-gray-900 text-white px-6 py-2.5 rounded-full font-bold hover:bg-gray-800 transition text-sm shadow-lg shadow-gray-200"
+                                        className="text-gray-500 hover:text-red-500 font-bold text-sm transition"
                                     >
                                         Keluar
                                     </Link>
@@ -54,20 +54,13 @@ export default function AppLayout({ canLogin, canRegister, children }) {
                 </div>
             </nav>
 
-            {/* Page Content */}
             <main>{children}</main>
 
-            {/* Footer */}
             <footer className="bg-white border-t border-gray-100 py-12">
                 <div className="max-w-7xl mx-auto px-4 text-center">
                     <span className="text-xl font-black text-orange-600 tracking-tighter mb-4 block">
                         RuangSinggah<span className="text-gray-900">.id</span>
                     </span>
-                    <div className="flex justify-center space-x-6 mb-6 text-sm text-gray-500">
-                        <Link href="/">Kebijakan Privasi</Link>
-                        <Link href="/">Syarat & Ketentuan</Link>
-                        <Link href="/">Bantuan</Link>
-                    </div>
                     <p className="text-gray-400 text-xs">
                         &copy; {new Date().getFullYear()} RuangSinggah.id. Seluruh hak cipta dilindungi.
                     </p>
