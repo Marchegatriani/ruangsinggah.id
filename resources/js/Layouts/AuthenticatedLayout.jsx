@@ -70,6 +70,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                             href={route('logout')}
                                             method="post"
                                             as="button"
+                                            onClick={(e) => {
+                                                if (!confirm('Apakah anda yakin untuk keluar?')) e.preventDefault();
+                                            }}
                                         >
                                             Log Out
                                         </Dropdown.Link>
@@ -154,6 +157,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                 method="post"
                                 href={route('logout')}
                                 as="button"
+                                onClick={(e) => {
+                                    if (!confirm('Apakah anda yakin untuk keluar?')) e.preventDefault();
+                                }}
                             >
                                 Log Out
                             </ResponsiveNavLink>

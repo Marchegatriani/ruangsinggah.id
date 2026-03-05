@@ -134,8 +134,8 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-4">
-                    <button
-                        type="button"
+                    <a
+                        href={route('auth.google')}
                         className="flex items-center justify-center py-3 border border-gray-100 rounded-xl hover:bg-gray-50 transition-colors gap-2 text-sm font-semibold text-gray-700 col-span-2 sm:col-span-1"
                     >
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -145,7 +145,7 @@ export default function Login({ status, canResetPassword }) {
                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
                         </svg>
                         Google
-                    </button>
+                    </a>
                     <button
                         type="button"
                         disabled

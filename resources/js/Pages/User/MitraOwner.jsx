@@ -54,7 +54,7 @@ const MitraOwner = ({ auth, ...props }) => {
                                 <h1 className="text-5xl font-extrabold mb-6 leading-tight">Optimalkan Hunian Anda Bersama RuangSinggah.id</h1>
                                 <p className="text-orange-50 text-lg mb-10">Jangkau ribuan mahasiswa potensial dan bangun kepercayaan melalui sistem verifikasi yang transparan.</p>
                                 <button onClick={scrollToFormSection} className="bg-white text-orange-600 px-8 py-4 rounded-xl font-bold hover:bg-orange-50 transition-all shadow-xl flex items-center gap-2">
-                                    Daftar Jadi Mitra Pemenang <ArrowRight className="w-5 h-5" />
+                                    Daftar Jadi Mitra Ruangsinggah <ArrowRight className="w-5 h-5" />
                                 </button>
                             </div>
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 aspect-[4/3]">

@@ -19,24 +19,35 @@ export default function AppLayout({ canLogin, canRegister, children }) {
                             <Link href="/" className="text-gray-600 hover:text-orange-500 transition">Beranda</Link>
                             <Link href={route('kost.index')} className="text-gray-600 hover:text-orange-500 transition">Cari Kost</Link>
                             <Link href={route('database.index')} className="text-gray-600 hover:text-orange-500 transition">Database Kost</Link>
+                            <Link href={route('survey.index')} className="text-gray-600 hover:text-orange-500 transition">Jasa Survey</Link>
                             <Link href={route('mitra.index')} className="text-gray-600 hover:text-orange-500 transition">Bermitra</Link>
                         </div>
                         <div className="flex items-center space-x-4">
-                            {canLogin && (
-                                auth.user ? (
-                                    <Link href={route('dashboard')} className="bg-orange-500 text-white px-6 py-2.5 rounded-full font-bold hover:bg-orange-600 transition shadow-lg shadow-orange-200">
-                                        Dashboard
+                            {auth.user ? (
+                                <div className="flex items-center gap-6">
+                                    <div className="text-right hidden sm:block">
+                                        <p className="text-xs font-black text-gray-900 uppercase tracking-tight">{auth.user.name}</p>
+                                        <p className="text-[9px] text-orange-500 font-bold uppercase tracking-widest">User</p>
+                                    </div>
+                                    <Link 
+                                        href={route('logout')} 
+                                        method="post" 
+                                        as="button" 
+                                        onClick={(e) => {
+                                            if (!confirm('Apakah anda yakin untuk keluar?')) e.preventDefault();
+                                        }}
+                                        className="bg-gray-900 text-white px-6 py-2.5 rounded-full font-bold hover:bg-gray-800 transition text-sm shadow-lg shadow-gray-200"
+                                    >
+                                        Keluar
                                     </Link>
-                                ) : (
-                                    <>
-                                        <Link href={route('login')} className="text-gray-700 font-semibold hover:text-orange-500 transition">Masuk</Link>
-                                        {canRegister && (
-                                            <Link href={route('register')} className="bg-gray-900 text-white px-6 py-2.5 rounded-full font-bold hover:bg-gray-800 transition">
-                                                Daftar
-                                            </Link>
-                                        )}
-                                    </>
-                                )
+                                </div>
+                            ) : (
+                                <>
+                                    <Link href={route('login')} className="text-gray-700 font-semibold hover:text-orange-500 transition">Masuk</Link>
+                                    <Link href={route('register')} className="bg-gray-900 text-white px-6 py-2.5 rounded-full font-bold hover:bg-gray-800 transition">
+                                        Daftar
+                                    </Link>
+                                </>
                             )}
                         </div>
                     </div>
