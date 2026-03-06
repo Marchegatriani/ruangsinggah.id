@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\SocialiteController;
 // Alias untuk Admin Controller agar tidak bentrok
 use App\Http\Controllers\Admin\KostController as AdminKostController;
 use App\Http\Controllers\Admin\DatabaseProductController as AdminDatabaseController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,13 +45,26 @@ Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        // Kamu bisa mengarahkan ini ke Admin/Dashboard.jsx nanti
-        return Inertia::render('Admin/Dashboard'); 
-    })->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // Route::get('/kost', [AdminKostController::class, 'index'])->name('kost.index');
-    // Route::get('/database-kost', [AdminDatabaseController::class, 'index'])->name('database.index');
+    // CRUD Kost
+    Route::get('/kost', [AdminKostController::class, 'index'])->name('kost.index');
+    Route::post('/kost', [AdminKostController::class, 'store'])->name('kost.store');
+    Route::patch('/kost/{kost}', [AdminKostController::class, 'update'])->name('kost.update');
+    Route::delete('/kost/{kost}', [AdminKostController::class, 'destroy'])->name('kost.destroy');
+
+    // CRUD Database
+    Route::get('/database-kost', [AdminDatabaseController::class, 'index'])->name('database.index');
+    Route::post('/database-kost', [AdminDatabaseController::class, 'store'])->name('database.store');
+    Route::patch('/database-kost/{databaseProduct}', [AdminDatabaseController::class, 'update'])->name('database.update');
+    Route::delete('/database-kost/{databaseProduct}', [AdminDatabaseController::class, 'destroy'])->name('database.destroy');
+
+    Route::get('/verifikasi-kost', fn() => Inertia::render('Admin/Verification/Index'))->name('verification.index');
+    Route::get('/transaksi-sewa', [AdminKostController::class, 'transactions'])->name('transactions.rent');
+    Route::get('/transaksi-db', [AdminDatabaseController::class, 'transactions'])->name('transactions.db');
+    Route::get('/jasa-survey', fn() => Inertia::render('Admin/Survey/Index'))->name('survey.index');
+    Route::get('/pendaftar-mitra', fn() => Inertia::render('Admin/Mitra/Index'))->name('mitra.index');
+    Route::get('/komplain', fn() => Inertia::render('Admin/Complaints/Index'))->name('complaints.index');
 
     });
 
