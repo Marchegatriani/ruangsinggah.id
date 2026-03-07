@@ -51,7 +51,7 @@ export default function AdminLayout({ children }) {
                     </div>
                     <SidebarItem icon="🏠" label="Kelola Kost" routeName="admin.kost.index" active={route().current('admin.kost.*')} />
                     <SidebarItem icon="🗄️" label="Kelola Database" routeName="admin.database.index" active={route().current('admin.database.*')} />
-                    <SidebarItem icon="🛡️" label="Verifikasi Kost" routeName="admin.verification.index" active={route().current('admin.verification.*')} />
+                    <SidebarItem icon="�️" label="Verifikasi Kost" routeName="admin.verification.index" active={route().current('admin.verification.*')} />
 
                     <div className="pt-4 pb-2">
                         <p className="px-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Transaksi & Klien</p>
