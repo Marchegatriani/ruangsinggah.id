@@ -6,18 +6,11 @@ export default function Index({ auth, listings = [] }) {
     const formatCurrency = (value) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(value);
 
     const { delete: destroy } = useForm();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingKost, setEditingKost] = useState(null);
 
     const handleDelete = (id) => {
         if (confirm('Apakah Anda yakin ingin menghapus kost ini?')) {
             destroy(route('admin.kost.destroy', id));
         }
-    };
-
-    const openAddModal = () => {
-        setEditingKost(null);
-        setIsModalOpen(true);
     };
 
     return (
@@ -29,10 +22,13 @@ export default function Index({ auth, listings = [] }) {
                     <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Kelola Properti Kost</h2>
                     <p className="text-gray-500 text-sm mt-1">Manajemen daftar hunian yang tampil di platform.</p>
                 </div>
-                <button onClick={openAddModal} className="bg-orange-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-lg active:scale-95 flex items-center gap-2">
+                <Link 
+                    href={route('admin.kost.create')} 
+                    className="bg-orange-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-lg active:scale-95 flex items-center gap-2"
+                >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
                     Tambah Kost
-                </button>
+                </Link>
             </div>
 
             <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
@@ -79,8 +75,8 @@ export default function Index({ auth, listings = [] }) {
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex justify-end gap-2">
-                                            <Link href={route('kost.show', item.id || 1)} target="_blank" className="px-3 py-1.5 rounded-lg text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors">Kunjungi</Link>
-                                            <button className="px-3 py-1.5 rounded-lg text-xs font-bold text-orange-600 bg-orange-50 hover:bg-orange-100 transition-colors">Edit</button>
+                                            <Link href={route('admin.kost.show', item.id)} className="px-3 py-1.5 rounded-lg text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors">Detail</Link>
+                                            <Link href={route('admin.kost.edit', item.id)} className="px-3 py-1.5 rounded-lg text-xs font-bold text-orange-600 bg-orange-50 hover:bg-orange-100 transition-colors">Edit</Link>
                                             <button onClick={() => handleDelete(item.id)} className="px-3 py-1.5 rounded-lg text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 transition-colors">Hapus</button>
                                         </div>
                                     </td>

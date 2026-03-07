@@ -6,8 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kost extends Model
 {
-    protected $guarded = []; // Agar semua kolom bisa diisi cepat
+    protected $fillable = [
+        'name', 'type', 'description', 'price', 'address', 
+        'latitude', 'longitude', 'is_verified', 
+        'facilities', 'rules', 'roomTypes'
+    ];
 
+    // Casting sangat penting untuk MySQL agar data terbaca sebagai array di Laravel
+    protected $casts = [
+        'facilities' => 'array',
+        'rules' => 'array',
+        'roomTypes' => 'array',
+        'is_verified' => 'boolean',
+        'price' => 'integer',
+    ];
+    
     // Relasi ke Gambar (Satu Kost punya Banyak Foto)
     public function images()
     {

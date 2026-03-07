@@ -13,13 +13,20 @@ return new class extends Migration
     {
     Schema::create('kosts', function (Blueprint $table) {
         $table->id();
-        $table->string('name'); 
+        $table->string('name');
+        $table->enum('type', ['Putra', 'Putri', 'Campur']);
+        $table->text('description')->nullable();
+        $table->decimal('price', 15, 2); // Harga terendah (untuk filter)
         $table->text('address');
-        $table->decimal('latitude', 11, 8)->nullable();
+        $table->decimal('latitude', 10, 8)->nullable();
         $table->decimal('longitude', 11, 8)->nullable();
-        $table->decimal('price', 12, 2);
         $table->boolean('is_verified')->default(false);
-        $table->string('type'); // Putra / Putri
+
+        // Kolom JSON untuk data kompleks
+        $table->json('roomTypes')->nullable(); 
+        $table->json('facilities')->nullable();
+        $table->json('rules')->nullable();
+        
         $table->timestamps();
     });
     }

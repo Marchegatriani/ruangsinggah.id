@@ -22,7 +22,6 @@ export default function AdminLayout({ children }) {
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
-            {/* Header Admin (Mirip AppLayout kamu) */}
             <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 h-20 flex items-center shrink-0">
                 <div className="max-w-[100%] w-full mx-auto px-6 flex justify-between items-center">
                     <Link href="/" className="text-2xl font-black text-orange-600 tracking-tighter">

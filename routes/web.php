@@ -49,7 +49,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // CRUD Kost
     Route::get('/kost', [AdminKostController::class, 'index'])->name('kost.index');
+    Route::get('/kost/create', [AdminKostController::class, 'create'])->name('kost.create');
     Route::post('/kost', [AdminKostController::class, 'store'])->name('kost.store');
+    Route::get('/kost/{kost}', [AdminKostController::class, 'show'])->name('kost.show');
+    Route::get('/kost/{kost}/edit', [AdminKostController::class, 'edit'])->name('kost.edit');
     Route::patch('/kost/{kost}', [AdminKostController::class, 'update'])->name('kost.update');
     Route::delete('/kost/{kost}', [AdminKostController::class, 'destroy'])->name('kost.destroy');
 

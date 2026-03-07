@@ -14,18 +14,18 @@ class RuangSinggahSeeder extends Seeder
     {
         // 1. Masukkan Data Sulhan (User)
         $user = User::create([
-            'name' => 'Sulhan',
-            'email' => 'sulhan77777@gmail.com',
-            'password' => Hash::make('password123'), // Password default
+            'name' => 'Marche',
+            'email' => 'marchgtry@gmail.com',
+            'password' => Hash::make('marche123'), // Password default
             'role' => 'admin',
         ]);
 
-        // 2. Masukkan Profile Sulhan
+        // 2. Masukkan Profile  Admin
         $user->profile()->create([
-            'phone' => '081527080656',
+            'phone' => '0895197318327',
             'institution' => 'Universitas Hasanuddin',
             'address' => 'jl. bung, tamalanrea indah, kec. tamalanrea, kota makassar',
-            'gender' => 'Pria',
+            'gender' => 'Wanita',
         ]);
 
         // 3. Masukkan Data Kampus
