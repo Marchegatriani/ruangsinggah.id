@@ -74,6 +74,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/jasa-survey', fn() => Inertia::render('Admin/Survey/Index'))->name('survey.index');
     Route::get('/pendaftar-mitra', fn() => Inertia::render('Admin/Mitra/Index'))->name('mitra.index');
     Route::get('/komplain', fn() => Inertia::render('Admin/Complaints/Index'))->name('complaints.index');
+
+    // Update Status Transaksi (Gunakan PATCH untuk update status)
+    Route::patch('/transactions/db/{order}', [AdminDatabaseController::class, 'updateOrderStatus'])->name('transactions.db.update');
+    Route::patch('/transactions/rent/{booking}', [AdminKostController::class, 'updateBookingStatus'])->name('transactions.rent.update');
 });
 
 /*

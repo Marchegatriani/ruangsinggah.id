@@ -36,4 +36,8 @@ class DatabaseProduct extends Model
         }
         return $this->file_path; // Return link langsung jika tipe 'link'
     }
+
+    public function orders() {
+        return $this->hasMany(DatabaseOrder::class);
+    }
 }

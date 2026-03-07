@@ -59,4 +59,12 @@ class User extends Authenticatable
         // Jika nanti user bisa jadi owner, dia punya banyak Kost
         return $this->hasMany(Kost::class);
     }
+
+    public function databaseOrders() {
+        return $this->hasMany(DatabaseOrder::class);
+    }
+
+    public function bookings() {
+        return $this->hasMany(Booking::class);
+    }
 }

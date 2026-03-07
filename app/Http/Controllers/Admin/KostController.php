@@ -53,7 +53,6 @@ class KostController extends Controller
         ]);
 
         // LOGIKA OTOMATIS: Cari harga paling murah dari semua tipe kamar & periode
-        // Ini berguna agar di halaman depan user bisa melihat "Mulai dari Rp XXX"
         $prices = [];
         foreach ($request->roomTypes as $room) {
             foreach ($room['pricing'] as $p) {
@@ -64,21 +63,9 @@ class KostController extends Controller
         }
         $validated['price'] = !empty($prices) ? min($prices) : 0;
 
-        // Simpan ke Database
-        // Laravel secara otomatis mengubah array menjadi JSON string untuk MySQL
         Kost::create($validated);
         
-        return redirect()->route('admin.kost.index')->with('success', 'Properti dan Tipe Kamar berhasil disimpan.');
-    }
-
-    /**
-     * Menampilkan detail kost.
-     */
-    public function show(Kost $kost)
-    {
-        return Inertia::render('Admin/Kost/Show', [
-            'kost' => $kost->load(['images', 'campuses'])
-        ]);
+        return redirect()->route('admin.kost.index')->with('success', 'Properti berhasil disimpan.');
     }
 
     /**
@@ -110,7 +97,6 @@ class KostController extends Controller
             'roomTypes'   => 'required|array',
         ]);
 
-        // Rekalkulasi harga terendah saat update
         $prices = [];
         foreach ($request->roomTypes as $room) {
             foreach ($room['pricing'] as $p) {
@@ -136,7 +122,7 @@ class KostController extends Controller
     }
 
     /**
-     * Menampilkan statistik transaksi (Sesuai kode lama Anda).
+     * Manajemen Transaksi Sewa.
      */
     public function transactions()
     {
@@ -146,20 +132,35 @@ class KostController extends Controller
             'rentRevenue'  => Booking::where('status', 'success')->sum('total_price') ?? 0,
         ];
 
-        // Mengambil data tren 6 bulan terakhir
         $trendData = collect(range(5, 0))->map(function ($i) {
             $date = now()->subMonths($i);
             return [
                 'time'       => $date->format('M'),
                 'sewa'       => Booking::where('status', 'success')->whereMonth('created_at', $date->month)->whereYear('created_at', $date->year)->count(),
-                'pendapatan' => Booking::where('status', 'success')->whereMonth('created_at', $date->month)->whereYear('created_at', $date->year)->sum('total_price') ?? 0,
+                'pendapatan' => (int) Booking::where('status', 'success')->whereMonth('created_at', $date->month)->whereYear('created_at', $date->year)->sum('total_price'),
             ];
         });
 
-        return Inertia::render('Admin/Transaction/Rent', [
+        return Inertia::render('Admin/Transactions/Rent/Index', [
             'transactions' => Booking::with(['user', 'kost'])->latest()->get(),
             'stats'        => $stats,
             'trendData'    => $trendData
         ]);
+    }
+
+    /**
+     * Update Status Booking (Konfirmasi/Batal).
+     */
+    public function updateBookingStatus(Request $request, Booking $booking)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,success,cancelled'
+        ]);
+
+        $booking->update([
+            'status' => $request->status
+        ]);
+
+        return back()->with('success', 'Status transaksi berhasil diperbarui ke ' . $request->status);
     }
 }

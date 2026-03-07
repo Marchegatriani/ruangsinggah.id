@@ -50,7 +50,7 @@ const DatabaseIndex = ({ products = [], initialId, auth, ...props }) => {
     const handleBuyNow = (item) => {
         if (!auth.user) {
             if (confirm("Anda harus login untuk membeli database ini. Login sekarang?")) {
-                router.get(route('login'), { redirect: route('database.index', { productId: item.id }) });
+                router.get(route('login'), { redirect: route('databasekost.index', { productId: item.id }) });
             }
             return;
         }
